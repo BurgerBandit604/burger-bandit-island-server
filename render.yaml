@@ -1,0 +1,14 @@
+# Render reads this file when you click "New > Blueprint" and pick this repository.
+services:
+  - type: web
+    name: burger-bandit-island-server
+    runtime: node
+    plan: free            # change to "starter" for an always-on server
+    region: oregon        # closest Render region to Vancouver
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: MAX_PLAYERS
+        value: "200"

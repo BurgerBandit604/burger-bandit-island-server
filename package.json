@@ -1,0 +1,14 @@
+{
+  "name": "burger-bandit-island-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multiplayer server for Burger Bandit Island",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/servertest.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
