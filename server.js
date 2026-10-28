@@ -175,14 +175,18 @@ setInterval(() => { const now = Date.now(); for (const p of players) { if (now -
 
 // ---------------------------------------------------------------- HTTP + upgrade
 const started = Date.now();
+// Burger Bandit Championship Racing shares this server: its players connect to /racing (see racing/racing.js)
+const racing = require('./racing/racing')({ Conn, wsAccept, clean, cleanName, log });
 function log(...a) { if (!process.env.QUIET) console.log(new Date().toISOString().slice(11, 19), ...a); }
 const server = http.createServer((req, res) => {
   const h = { 'content-type': 'text/plain', 'access-control-allow-origin': '*', 'cache-control': 'no-store' };
   if (req.url === '/health') { res.writeHead(200, h); return res.end('ok'); }
+  if (req.url === '/racing/status') { res.writeHead(200, Object.assign(h, { 'content-type': 'application/json' })); return res.end(JSON.stringify(racing.status())); }
   if (req.url === '/status') { res.writeHead(200, Object.assign(h, { 'content-type': 'application/json' })); return res.end(JSON.stringify({ players: players.size, rooms: rooms.size, upMinutes: Math.round((Date.now() - started) / 60000) })); }
   res.writeHead(200, h); res.end('Burger Bandit Island multiplayer server is running. Players online: ' + players.size + ', rooms: ' + rooms.size + '\n');
 });
 server.on('upgrade', (req, sock) => {
+  if (String(req.url || '').startsWith('/racing')) return racing.upgrade(req, sock);
   const key = req.headers['sec-websocket-key'];
   if (!key || String(req.headers.upgrade).toLowerCase() !== 'websocket') { sock.end('HTTP/1.1 400 Bad Request\r\n\r\n'); return; }
   if (players.size >= SERVER_CAP) { sock.end('HTTP/1.1 503 Server Full\r\n\r\n'); return; }

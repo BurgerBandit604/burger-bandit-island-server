@@ -35,6 +35,16 @@ This small program lets players of Burger Bandit Island see each other. It runs 
 
 The settings in `fly.toml` keep one small server always on in Seattle, the closest region to Vancouver.
 
+## Burger Bandit Championship Racing shares this server
+
+The racing game's online lobby runs on this same server, in the `racing` folder. Racing players connect to `wss://<your-server>/racing`; island players keep using the plain address. The two games never see each other's rooms or players.
+
+- **Rooms:** 4-letter codes, public or private, 2 to 12 drivers.
+- **Lobby:** the host picks the track, laps and conditions; everyone picks a car and paint and presses Ready; the host starts.
+- **Race:** each car's position is passed to the others about 15 times a second. The server keeps the finishing order and sends the results. After the first driver finishes, the rest have 45 seconds.
+- `/racing/status` shows racing players and rooms.
+- Test it with `node racing/racetest.js` (19 checks, including one that the island game still works).
+
 ## Useful addresses
 
 - `/` says the server is running and shows how many players are online
