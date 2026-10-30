@@ -9,8 +9,8 @@ const PROTOCOL = 1;
 const CAP = +process.env.RACING_MAX_PLAYERS || 120;   // racing players on this server, all rooms together
 const ROOM_MIN = 2, ROOM_MAX = 12, ROOM_DEFAULT = 8;
 const TICK_MS = 66, MSG_PER_SEC = 40;
-const TRACKS = 'ABCDEFGHIJ', CONDS = ['day', 'dusk', 'night', 'rain'], LAPS = [1, 2, 3, 5, 8, 10];
-const CARS = ['cup', 'stock', 'f1', 'lm', 'baja', 'drift', 'strake', 'jacket', 'arrow', 'rod'];
+const TRACKS = 'ABCDEFGHIJK', CONDS = ['day', 'dusk', 'night', 'rain'], LAPS = [1, 2, 3, 5, 8, 10];
+const CARS = ['cup', 'classic', 'stock', 'f1', 'lm', 'baja', 'drift', 'strake', 'jacket', 'arrow', 'rod'];
 const FINISH_GRACE_MS = 45000;                        // after the first finisher, others get this long
 const COUNTDOWN_MS = 4500;
 
